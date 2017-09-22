@@ -1,0 +1,52 @@
+spring:
+  main:
+    web-environment: false
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: regestration-service.output
+          contentType: application/json
+          binder: rabbitmq1
+        input:
+          destination: shipping-service.input
+          contentType: application/json
+          group: address-service
+          binder: rabbitmq1
+# https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#multiple-systems
+      binders:
+        rabbitmq1:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                username:                             guest
+                password:                             guest
+                port:                                 5672
+                virtual-host:                         accountancy
+        rabbitmq2:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                username:                             guest
+                password:                             guest
+                port:                                 5672
+                virtual-host:                         crm
+      rabbit:
+        bindings:
+          input:
+# https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#_rabbitmq_consumer_properties
+            consumer:
+              bindingRoutingKey: 1337
+          output:
+# https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#_rabbit_producer_properties
+            producer:
+              routingKeyExpression: "headers.tenantId"
+  rabbitmq:
+    host:                                 localhost
+    username:                             guest
+    password:                             guest
+    port:                                 5672
