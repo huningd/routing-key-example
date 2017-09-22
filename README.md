@@ -1,5 +1,5 @@
 # Routing Key Example
-## Summary
+## Summary  [![Build Status](https://travis-ci.org/huningd/routing-key-example.svg?branch=master)](https://travis-ci.org/huningd/routing-key-example)
 This example demonstrates the usage of routing key when working with [Spring Cloud Stream](https://cloud.spring.io/spring-cloud-stream/).
 
 ## Execute
